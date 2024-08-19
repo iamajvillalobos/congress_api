@@ -1,4 +1,6 @@
 class BillService < BaseService
+  MAX_LIMIT = 250
+
   def fetch_bills(params = {})
     response = fetch("bill", params)
     save_bills(response["bills"])
@@ -10,7 +12,28 @@ class BillService < BaseService
 
   def fetch_bills_by_date_range(from_date, to_date, params = {})
     set_date_range(from_date, to_date)
-    fetch_bills(params)
+    fetch_all_bills(params)
+  end
+
+  def fetch_all_bills(params)
+    all_bills = []
+    total_count = nil
+    current_params = params.merge(limit: MAX_LIMIT)
+
+    loop do
+      response = fetch("bill", current_params)
+      bills = save_bills(response["bills"])
+      all_bills.concat(bills)
+
+      total_count ||= response["pagination"]["count"].to_i
+
+      break if all_bills.size >= total_count || response["pagination"]["next"].nil?
+
+      next_uri = URI(response["pagination"]["next"])
+      current_params = CGI.parse(next_uri.query).transform_values(&:first)
+    end
+
+    all_bills
   end
 
   def save_bills(bills)
