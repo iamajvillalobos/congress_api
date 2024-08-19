@@ -1,3 +1,10 @@
+## Setup
+```
+bin/setup
+touch .env
+echo "CONGRESS_API_KEY=" >> .env
+```
+
 ## Fetch Bills
 ```
 BillService.new.fetch_recent_bills # only fetch recent 20
