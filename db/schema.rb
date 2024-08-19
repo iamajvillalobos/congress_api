@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_19_103634) do
   create_table "bills", force: :cascade do |t|
     t.integer "congress"
     t.string "number"
-    t.string "type"
+    t.string "bill_type"
     t.string "title"
     t.string "origin_chamber"
     t.string "origin_chamber_code"
@@ -27,8 +27,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_19_103634) do
     t.json "latest_action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bill_type"], name: "index_bills_on_bill_type"
     t.index ["congress"], name: "index_bills_on_congress"
-    t.index ["type"], name: "index_bills_on_type"
     t.index ["update_date"], name: "index_bills_on_update_date"
     t.index ["url"], name: "index_bills_on_url", unique: true
   end

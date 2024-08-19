@@ -3,7 +3,7 @@ class CreateBills < ActiveRecord::Migration[7.2]
     create_table :bills do |t|
       t.integer :congress
       t.string :number
-      t.string :type
+      t.string :bill_type
       t.string :title
       t.string :origin_chamber
       t.string :origin_chamber_code
@@ -16,7 +16,7 @@ class CreateBills < ActiveRecord::Migration[7.2]
     end
 
     add_index :bills, :congress
-    add_index :bills, :type
+    add_index :bills, :bill_type
     add_index :bills, :update_date
     add_index :bills, :url, unique: true
   end
