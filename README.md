@@ -1,24 +1,13 @@
-# README
+## Fetch Bills
+```
+BillService.new.fetch_recent_bills # only fetch recent 20
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+from_date = Date.parse("Aug 17, 2024")
+to_date = Date.parse("Aug 19, 2024")
+BillService.new.fetch_bills_by_date_range(from_date, to_date)
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Export Bills to CSV
+```
+rake export:bill
+```
